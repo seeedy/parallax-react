@@ -5,6 +5,8 @@ import { getPhotos } from "./requests";
 
 const insideStyles = {
   background: "transparent",
+  color: "white",
+  fontSize: "2rem",
   padding: 20,
   position: "absolute",
   top: "50%",
@@ -19,7 +21,7 @@ function HomePage() {
 
   const loadImages = async () => {
     const response = await getPhotos();
-    console.log(response)
+    console.log(response.data.hits);
     setImages(response.data.hits);
   };
 
@@ -36,10 +38,10 @@ function HomePage() {
           <Fragment key={i}>
             <Parallax
 
-              blur={5}
-              bgImage={img.userImageURL}
+              blur={{ min: -5, max: 5 }}
+              bgImage={img.largeImageURL}
               bgImageAlt={img.tags}
-              strength={600}
+              strength={500}
               renderLayer={percentage => (
                 <div>
                   <div
@@ -55,7 +57,7 @@ function HomePage() {
                 </div>
               )}
             >
-              <div style={{ height: 500 }}>
+              <div style={{ height: 700 }}>
                 <div style={insideStyles}>{img.tags}</div>
               </div>
             </Parallax>
